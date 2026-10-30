@@ -25,6 +25,23 @@
       <a href="assets/architecture.svg" aria-label="Open full-size RF Prior architecture"><img src="assets/architecture.svg" alt="RF Prior architecture showing receptive-field transfer, constrained target correction, and the contextual decoder." width="1600" height="400"></a>
       <figcaption>RF Prior: receptive-field transfer, constrained target correction, and contextual decoding. P5 parameters remain fixed while its activations evolve with the adapted upstream features.</figcaption>
     </figure>
+    <section class="principle" aria-labelledby="principle-title">
+      <h2 id="principle-title">Preserved parameters, adaptive features</h2>
+      <div class="equations">
+        <div class="feature-equation">
+          <math display="block" aria-label="P5 parameters remain equal to their source values">
+            <msubsup><mi mathvariant="bold">&theta;</mi><mn>5</mn><mi>t</mi></msubsup><mo>=</mo><msub><mi mathvariant="bold">&theta;</mi><mrow><mn>0</mn><mo>,</mo><mn>5</mn></mrow></msub>
+          </math>
+          <math display="block" aria-label="P5 features depend on adaptive P4 features and normalization state">
+            <msubsup><mi>F</mi><mn>5</mn><mi>t</mi></msubsup><mo>=</mo><msub><mi>B</mi><mn>5</mn></msub><mo>(</mo><msubsup><mi>F</mi><mn>4</mn><mi>t</mi></msubsup><mo>;</mo><msub><mi mathvariant="bold">&theta;</mi><mrow><mn>0</mn><mo>,</mo><mn>5</mn></mrow></msub><mo>,</mo><msubsup><mi>s</mi><mn>5</mn><mi>t</mi></msubsup><mo>)</mo>
+          </math>
+        </div>
+        <math class="gradient-equation" display="block" aria-label="The P4 gradient includes both its direct readout signal and the contextual path through P5">
+          <msub><mo>&nabla;</mo><msub><mi mathvariant="bold">&theta;</mi><mn>4</mn></msub></msub><mi>&ell;</mi><mo>=</mo><msubsup><mi>J</mi><mrow><mn>4</mn><mi>&theta;</mi></mrow><mo>&top;</mo></msubsup><mo>(</mo><msub><mi>g</mi><mn>4</mn></msub><mo>+</mo><msubsup><mi>J</mi><mn>54</mn><mo>&top;</mo></msubsup><msub><mi>g</mi><mn>5</mn></msub><mo>)</mo>
+        </math>
+      </div>
+      <p>P5 retains its learned parameters while its features evolve through the adapted P4 input and normalization state <var>s</var><sub>5</sub>. The input Jacobian <var>J</var><sub>54</sub> carries the contextual learning signal back to P4; <var>g</var><sub>4</sub> and <var>g</var><sub>5</sub> denote loss gradients at the separate decoder inputs. This couples source-parameter preservation to target-adaptive representations.</p>
+    </section>
   </main>
   <dialog id="code-dialog"><button class="dialog-close" type="button" aria-label="Close dialog">&times;</button><h2>Code release</h2><p>Source code will be released at a later date.</p><button class="button" type="button" data-close>Close</button></dialog>
   <script src="app.js"></script>
